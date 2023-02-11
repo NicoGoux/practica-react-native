@@ -1,4 +1,4 @@
 # practica-react-native
-Integrantes: 
-  Airaldi, Renzo
-  Goux, Nicolas
+Integrantes:  
+- Airaldi, Renzo 
+- Goux, Nicolas
