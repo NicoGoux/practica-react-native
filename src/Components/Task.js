@@ -1,8 +1,18 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React, { useContext, useEffect, useState } from 'react';
+import { View, TouchableHighlight, Text, StyleSheet } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { AppContext } from '../Context/AppContext';
 
-function Task({ colors, task }) {
+function Task({ task, navigation }) {
+    const { taskList, setTaskList, colors } = useContext(AppContext);
+
+    const [complete, setComplete] = useState(task.complete);
+
+    useEffect(() => {
+        task.complete = complete;
+        setTaskList([...taskList]);
+    }, [complete]);
+
     const styles = StyleSheet.create({
         taskContainer: {
             flexDirection: 'row',
@@ -17,24 +27,39 @@ function Task({ colors, task }) {
     });
 
     return (
-        <View style={styles.taskContainer}>
-            {task.complete ? (
-                <Ionicons
-                    style={styles.taskListIcon}
-                    name="radio-button-on"
-                    size={25}
-                    color={colors.button}
-                />
-            ) : (
-                <Ionicons
-                    style={styles.taskListIcon}
-                    name="radio-button-off"
-                    size={25}
-                    color={colors.button}
-                />
-            )}
-            <Text style={styles.taskText}>{task.text}</Text>
-        </View>
+        <TouchableHighlight
+            onPress={() => {
+                navigation.navigate('Task', { task: task, newTask: false });
+            }}>
+            <View style={styles.taskContainer}>
+                {complete ? (
+                    <TouchableHighlight
+                        onPress={() => {
+                            setComplete(false);
+                        }}>
+                        <Ionicons
+                            style={styles.taskListIcon}
+                            name="checkmark"
+                            size={25}
+                            color={colors.button}
+                        />
+                    </TouchableHighlight>
+                ) : (
+                    <TouchableHighlight
+                        onPress={() => {
+                            setComplete(true);
+                        }}>
+                        <Ionicons
+                            style={styles.taskListIcon}
+                            name="remove"
+                            size={25}
+                            color={colors.button}
+                        />
+                    </TouchableHighlight>
+                )}
+                <Text style={styles.taskText}>{task.title}</Text>
+            </View>
+        </TouchableHighlight>
     );
 }
 
