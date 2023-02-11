@@ -6,6 +6,7 @@ import {
     TouchableHighlight,
     BackHandler,
     ActivityIndicator,
+    Alert,
 } from 'react-native';
 import { TaskList } from '../Components/TaskList.js';
 import { AppContext, showConfirmDialog } from '../Context/AppContext.js';

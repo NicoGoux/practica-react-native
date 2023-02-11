@@ -20,4 +20,4 @@ const getTaskList = async (setTaskList, setLoading) => {
     }
 };
 
-export { storeData, getTaskList, logData };
+export { storeData, getTaskList };
